@@ -8,7 +8,10 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 50%;
+      }
+      #panorama{
+          height: 50%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -20,13 +23,19 @@
   </head>
   <body>
     <div id="map"></div>
+    <div id="panorama"></div>
     <script>
-      var panorama, infoWindow;
+      var map, panorama, infoWindow;
       function initMap() {
-        var panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('map'), {
-              // Middle of Brooklyn
-              position: {lat: 40.650002, lng: -73.949997},
+        var brooklynCenter = {lat: 40.650002, lng: -73.949997};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: brooklynCenter,
+          zoom: 12
+        });
+
+        panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('panorama'), {
+              position: brooklynCenter,
               addressControlOptions: {
                 position: google.maps.ControlPosition.BOTTOM_CENTER
               },
@@ -48,13 +57,17 @@
 
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
+            infoWindow.open(map);
             infoWindow.open(panorama);
             panorama.setPosition(pos);
+            map.setCenter(pos)
           }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
             handleLocationError(true, infoWindow, panorama.getCurrentPosition());
           });
         } else {
           // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
           handleLocationError(false, infoWindow, panorama.getCurrentPosition());
         }
       }
@@ -64,8 +77,8 @@
         infoWindow.setContent(browserHasGeolocation ?
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(panorama);        
-
+        infoWindow.open(map);
+        infoWindow.open(panorama);
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByt5Hz5VbmqhKjalQ9NvURLLgP44b6bEE&callback=initMap"
