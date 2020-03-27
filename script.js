@@ -24,9 +24,25 @@ function initMap() {
 
     infoWindow = new google.maps.InfoWindow;
 
+    function createMarker(title, content, position) {
+        var markerInfoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+    
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
+            title: title
+        });
+        
+        marker.addListener('click', function() {
+            markerInfoWindow.open(map, marker);
+        });
+    }
+
     var catBirdContent = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
+    '<div id="siteNotice"></div>'+
     '<h1 id="firstHeading" class="firstHeading">Cat Bird</h1>'+
     '<div id="bodyContent">'+
     '<p>How to support: Shop online even though there will be no clear shipping date</p>' +
@@ -34,44 +50,26 @@ function initMap() {
     '<p>Message: <a href="https://www.catbirdnyc.com/covid19">https://www.catbirdnyc.com/covid19</a></p>' +
     '</div></div>';
     
-    joesPizzaContent = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
+    var joesPizzaContent = '<div id="content">'+
+    '<div id="siteNotice"></div>'+
     '<h1 id="firstHeading" class="firstHeading">Joe\'s Pizza</h1>'+
     '<div id="bodyContent">'+
     '<p>How to support: <a href="https://orderfood.google.com/chooseprovider?restaurantId=/g/11cknpclnb">Order online</a></p>' +
     '<p>Website: <a href="http://joespizzanyc.com/">http://joespizzanyc.com/</a></p>' +
     '</div></div>';
 
-    var catBirdInfowindow = new google.maps.InfoWindow({
-        content: catBirdContent
-    });
+    var awokeVintageContent = '<div id="content">'+
+    '<div id="siteNotice"></div>'+
+    '<h1 id="firstHeading" class="firstHeading">Awoke Vintage</h1>'+
+    '<div id="bodyContent">'+
+    '<p>How to support: <a href="https://www.instagram.com/awokevintagebrooklyn">Shop instagram</a></p>' +
+    '<p>Website: <a href="https://www.awokevintage.com/">https://www.awokevintage.com</a></p>' +
+    '</div></div>';
 
-    var joesPizzaInfowindow = new google.maps.InfoWindow({
-        content: joesPizzaContent
-    });
+    createMarker("Cat Bird", catBirdContent, {lat: 40.7164649, lng: -73.959563})
+    createMarker("Joe\'s Pizza", joesPizzaContent, {lat: 40.716444, lng: -73.959153})
+    createMarker("Awoke Vintage", awokeVintageContent, {lat: 40.716602, lng: -73.958623})
 
-    var catBirdMarker = new google.maps.Marker({
-        position: {lat: 40.7164649, lng: -73.959563},
-        map: map,
-        icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
-        title: 'Catbird'
-    });
-
-    var joesPizzaMarker = new google.maps.Marker({
-        position: {lat: 40.716444, lng: -73.959153},
-        map: map,
-        icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
-        title: 'Joe\'s Pizza'
-    });
-    
-    catBirdMarker.addListener('click', function() {
-        catBirdInfowindow.open(map, catBirdMarker);
-    });
-
-    joesPizzaMarker.addListener('click', function() {
-        joesPizzaInfowindow.open(map, joesPizzaMarker);
-    });
 
 
   /**
