@@ -25,6 +25,7 @@ function initMap() {
     infoWindow = new google.maps.InfoWindow;
 
     function createMarker(title, content, position) {
+        var closed = true;
         var markerInfoWindow = new google.maps.InfoWindow({
             content: content
         });
@@ -37,7 +38,13 @@ function initMap() {
         });
         
         marker.addListener('click', function() {
-            markerInfoWindow.open(map, marker);
+            if (closed) {
+                markerInfoWindow.open(map, marker);
+                closed = false;
+            } else {
+                markerInfoWindow.close(map, marker);
+                closed = true;
+            }
         });
     }
 
@@ -46,8 +53,8 @@ function initMap() {
     '<h1 id="firstHeading" class="firstHeading">Cat Bird</h1>'+
     '<div id="bodyContent">'+
     '<p>How to support: Shop online even though there will be no clear shipping date</p>' +
-    '<p>Website: <a href="https://www.catbirdnyc.com">https://www.catbirdnyc.com</a></p>' +
     '<p>Message: <a href="https://www.catbirdnyc.com/covid19">https://www.catbirdnyc.com/covid19</a></p>' +
+    '<p><a href="https://www.catbirdnyc.com">https://www.catbirdnyc.com</a></p>' +
     '</div></div>';
     
     var joesPizzaContent = '<div id="content">'+
@@ -55,7 +62,7 @@ function initMap() {
     '<h1 id="firstHeading" class="firstHeading">Joe\'s Pizza</h1>'+
     '<div id="bodyContent">'+
     '<p>How to support: <a href="https://orderfood.google.com/chooseprovider?restaurantId=/g/11cknpclnb">Order online</a></p>' +
-    '<p>Website: <a href="http://joespizzanyc.com/">http://joespizzanyc.com/</a></p>' +
+    '<p><a href="http://joespizzanyc.com/">http://joespizzanyc.com/</a></p>' +
     '</div></div>';
 
     var awokeVintageContent = '<div id="content">'+
@@ -63,14 +70,21 @@ function initMap() {
     '<h1 id="firstHeading" class="firstHeading">Awoke Vintage</h1>'+
     '<div id="bodyContent">'+
     '<p>How to support: <a href="https://www.instagram.com/awokevintagebrooklyn">Shop instagram</a></p>' +
-    '<p>Website: <a href="https://www.awokevintage.com/">https://www.awokevintage.com</a></p>' +
+    '<p><a href="https://www.awokevintage.com/">https://www.awokevintage.com</a></p>' +
+    '</div></div>';
+
+    var brooklynSpectaclesContent = '<div id="content">'+
+    '<div id="siteNotice"></div>'+
+    '<h1 id="firstHeading" class="firstHeading">Brooklyn Spectacles</h1>'+
+    '<div id="bodyContent">'+
+    '<p>How to support: <a href="https://brooklynspectacles.com">Shop online</a></p>' +
+    '<p><a href="https://brooklynspectacles.com">https://brooklynspectacles.com</a></p>' +
     '</div></div>';
 
     createMarker("Cat Bird", catBirdContent, {lat: 40.7164649, lng: -73.959563})
     createMarker("Joe\'s Pizza", joesPizzaContent, {lat: 40.716444, lng: -73.959153})
     createMarker("Awoke Vintage", awokeVintageContent, {lat: 40.716602, lng: -73.958623})
-
-
+    createMarker("Brooklyn Spectacles", brooklynSpectaclesContent, {lat: 40.71674, lng: -73.958535})
 
   /**
   // Try HTML5 geolocation.
