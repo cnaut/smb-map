@@ -26,16 +26,27 @@
     <div id="panorama"></div>
     <script>
       var map, panorama, infoWindow;
+      
       function initMap() {
         var brooklynCenter = {lat: 40.650002, lng: -73.949997};
+        var northWilliamsburg = {lat: 40.7162014, lng: -73.9594509};
+        var sv = new google.maps.StreetViewService();
+
         map = new google.maps.Map(document.getElementById('map'), {
-          center: brooklynCenter,
-          zoom: 12
+          center: northWilliamsburg,
+          zoom: 14  
+        });
+
+        var busMarker = new google.maps.Marker({
+            position: northWilliamsburg,
+            map: map,
+            icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=bus|FFFF00',
+            title: 'Bus Stop'
         });
 
         panorama = new google.maps.StreetViewPanorama(
             document.getElementById('panorama'), {
-              position: brooklynCenter,
+              position: northWilliamsburg,
               addressControlOptions: {
                 position: google.maps.ControlPosition.BOTTOM_CENTER
               },
@@ -69,6 +80,40 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
           handleLocationError(false, infoWindow, panorama.getCurrentPosition());
+        }
+
+        map.addListener('click', function(event) {
+          sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
+        });
+
+        function processSVData(data, status) {
+            if (status === 'OK') {
+            var marker = new google.maps.Marker({
+                position: data.location.latLng,
+                map: map,
+                title: data.location.description
+            });
+
+            panorama.setPano(data.location.pano);
+            panorama.setPov({
+                heading: 270,
+                pitch: 0
+            });
+            panorama.setVisible(true);
+
+            marker.addListener('click', function() {
+                var markerPanoID = data.location.pano;
+                // Set the Pano to use the passed panoID.
+                panorama.setPano(markerPanoID);
+                panorama.setPov({
+                heading: 270,
+                pitch: 0
+                });
+                panorama.setVisible(true);
+            });
+            } else {
+            console.error('Street View data not found for this location.');
+            }
         }
       }
 
