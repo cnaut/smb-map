@@ -111,39 +111,22 @@ function initMap() {
     handleLocationError(false, infoWindow, panorama.getCurrentPosition());
   }
 
-  map.addListener('click', function(event) {
-    sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
-  });
   **/
 
-  function processSVData(data, status) {
-      if (status === 'OK') {
-      var marker = new google.maps.Marker({
-          position: data.location.latLng,
-          map: map,
-          title: data.location.description
-      });
+    map.addListener('click', function(event) {
+        sv.getPanorama({location: event.latLng, radius: 50}, processSVData);
+    });
 
-      panorama.setPano(data.location.pano);
-      panorama.setPov({
-          heading: 270,
-          pitch: 0
-      });
-      panorama.setVisible(true);
-
-      marker.addListener('click', function() {
-          var markerPanoID = data.location.pano;
-          // Set the Pano to use the passed panoID.
-          panorama.setPano(markerPanoID);
-          panorama.setPov({
-          heading: 270,
-          pitch: 0
-          });
-          panorama.setVisible(true);
-      });
-      } else {
-      console.error('Street View data not found for this location.');
-      }
+    function processSVData(data, status) {
+        if (status === 'OK') {
+            panorama.setPano(data.location.pano);
+            panorama.setPov({
+                heading: 270,
+                pitch: 0
+            });
+        } else {
+            console.error('Street View data not found for this location.');
+        }
   }
 }
 
