@@ -1,28 +1,26 @@
 var map, panorama, infoWindow;
       
 function initMap() {
-  var brooklynCenter = {lat: 40.650002, lng: -73.949997};
-  var northWilliamsburg = {lat: 40.7162014, lng: -73.9594509};
-  var sv = new google.maps.StreetViewService();
+    var brooklynCenter = {lat: 40.650002, lng: -73.949997};
+    var northWilliamsburg = {lat: 40.7162014, lng: -73.9594509};
+    var sv = new google.maps.StreetViewService();
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: northWilliamsburg,
-    zoom: 16
-  });
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: northWilliamsburg,
+        zoom: 16
+    });
 
-  panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('panorama'), {
-        position: northWilliamsburg,
-        addressControlOptions: {
-          position: google.maps.ControlPosition.BOTTOM_CENTER
-        },
-        linksControl: false,
-        panControl: false,
-        enableCloseButton: false
-      }
-  );
-
-    infoWindow = new google.maps.InfoWindow;
+    panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('panorama'), {
+            position: northWilliamsburg,
+            addressControlOptions: {
+                position: google.maps.ControlPosition.BOTTOM_CENTER
+            },
+            linksControl: false,
+            panControl: false,
+            enableCloseButton: false
+        }
+    );
 
     function createMarker(title, content, position) {
         var closed = true;
@@ -132,7 +130,7 @@ function initMap() {
     var request = {
         location: northWilliamsburg,
         radius: '500',
-        type: ['restaurant']
+        //type: ['restaurant']
     };
 
     service = new google.maps.places.PlacesService(map);
@@ -159,12 +157,34 @@ function callback(results, status) {
 
 function createSearchMarker(place) {
     var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
+        map: map,
+        position: place.geometry.location,
+        icon: place.icon
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
+        console.log(place.id)
+        var request = {
+            placeId: place.place_id,
+            fields: ['formatted_phone_number', 'website']
+        };
+
+        service.getDetails(request, function(placeDetails, status) {
+            console.log(status)
+            console.log(placeDetails)
+            var content = '<div id="content">'+
+            '<div id="siteNotice"></div>'+
+            '<h1 id="firstHeading" class="firstHeading">' + place.name + '</h1>'+
+            '<div id="bodyContent">'+
+            '<p><a href="' + placeDetails.website + '">' + placeDetails.website + '</a></p>' +
+            '<p>' + placeDetails.formatted_phone_number + '</a></p>' +
+            '</div></div>';
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: content
+            });
+
+            infoWindow.open(map, marker);
+        });
     });
   }
