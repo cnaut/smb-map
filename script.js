@@ -127,7 +127,16 @@ function initMap() {
         } else {
             console.error('Street View data not found for this location.');
         }
-  }
+    }
+
+    var request = {
+        location: northWilliamsburg,
+        radius: '500',
+        type: ['restaurant']
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -138,3 +147,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
   infoWindow.open(panorama);
 }
+
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+            console.log(results[i])
+            createSearchMarker(results[i]);
+        }
+    }
+}
+
+function createSearchMarker(place) {
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+  }
