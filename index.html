@@ -24,7 +24,35 @@
   <body>
     <div id="map"></div>
     <div id="panorama"></div>
-    <script src="script.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDJatcRisQN9Ej8gtdhC-veIE5GhSdfHZ0",
+        authDomain: "get-this-bread-map.firebaseapp.com",
+        databaseURL: "https://get-this-bread-map.firebaseio.com",
+        projectId: "get-this-bread-map",
+        storageBucket: "get-this-bread-map.appspot.com",
+        messagingSenderId: "612493198536",
+        appId: "1:612493198536:web:90be8dac0d73ef5effd1fd",
+        measurementId: "G-TW7ENXH3N8"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
+    <script src="public/script.js"></script>
+
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByt5Hz5VbmqhKjalQ9NvURLLgP44b6bEE&libraries=places&callback=initMap"></script>
+
   </body>
 </html>
