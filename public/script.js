@@ -25,18 +25,31 @@ function initMap() {
         }
     );
 
-    function createMarker(title, content, position) {
+    function createMarker(business, position) {
+        var businessContent = '<div id="content">'+
+        '<div id="siteNotice"></div>'+
+        '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
+        '<div id="bodyContent">'+
+        '<p>' + business.help + '</p>' +
+        '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
+        '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
+        '</div></div>';        
+
         console.log(position)
         var closed = true;
-        var markerInfoWindow = new google.maps.InfoWindow({
-            content: content
+        var markerInfoMapWindow = new google.maps.InfoWindow({
+            content: businessContent
         });
-    
+
+        var markerInfoPanoramaWindow = new google.maps.InfoWindow({
+            content: businessContent
+        });
+
         var mapMarker = new google.maps.Marker({
             position: position,
             map: map,
             icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
-            title: title
+            title: business.name
         });
 
             
@@ -44,20 +57,19 @@ function initMap() {
             position: position,
             map: panorama,
             icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
-            title: title
+            title: business.name
         });
         
-        markerInfoWindow.open(panorama, panormaMarker);
+        markerInfoPanoramaWindow.open(panorama, panormaMarker);
 
-        
         mapMarker.addListener('click', function(e) {
             sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
 
             if (closed) {
-                markerInfoWindow.open(map, mapMarker);
+                markerInfoMapWindow.open(map, mapMarker);
                 closed = false;
             } else {
-                markerInfoWindow.close(map, mapMarker);
+                markerInfoMapWindow.close(map, mapMarker);
                 closed = true;
             }
         });
@@ -68,17 +80,7 @@ function initMap() {
     db.collection("businesses").get().then((querySnapshot) => {
         querySnapshot.forEach((businessQuery) => {
             var business = businessQuery.data();
-
-            var businessContent = '<div id="content">'+
-            '<div id="siteNotice"></div>'+
-            '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
-            '<div id="bodyContent">'+
-            '<p>' + business.help + '</p>' +
-            '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
-            '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
-            '</div></div>';        
-
-            createMarker(business.name, businessContent, {
+            createMarker(business, {
                 lat: business.latitude ? parseFloat(business.latitude) : business.location.latitude,
                 lng: business.longitude ? parseFloat(business.longitude) : business.location.longitude
             });
