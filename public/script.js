@@ -87,34 +87,7 @@ function initMap() {
             
         });
     });
-
-  /**
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-      infoWindow.open(map);
-      infoWindow.open(panorama);
-      panorama.setPosition(pos);
-      map.setCenter(pos)
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-      handleLocationError(true, infoWindow, panorama.getCurrentPosition());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-    handleLocationError(false, infoWindow, panorama.getCurrentPosition());
-  }
-
-  **/
-
+    
     map.addListener('click', function(e) {
         sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
     });
@@ -130,15 +103,6 @@ function initMap() {
             console.error('Street View data not found for this location.');
         }
     }
-
-    var request = {
-        location: northWilliamsburg,
-        radius: '500',
-        //type: ['restaurant']
-    };
-
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -149,48 +113,3 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
   infoWindow.open(panorama);
 }
-
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i])
-            createSearchMarker(results[i]);
-        }
-    }
-}
-
-function createSearchMarker(place) {
-    /**
-    var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location,
-        icon: place.icon
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-        console.log(place.id)
-        var request = {
-            placeId: place.place_id,
-            fields: ['formatted_phone_number', 'website']
-        };
-
-        service.getDetails(request, function(placeDetails, status) {
-            console.log(status)
-            console.log(placeDetails)
-            var content = '<div id="content">'+
-            '<div id="siteNotice"></div>'+
-            '<h1 id="firstHeading" class="firstHeading">' + place.name + '</h1>'+
-            '<div id="bodyContent">'+
-            '<p><a href="' + placeDetails.website + '">' + placeDetails.website + '</a></p>' +
-            '<p>' + placeDetails.formatted_phone_number + '</a></p>' +
-            '</div></div>';
-
-            var infoWindow = new google.maps.InfoWindow({
-                content: content
-            });
-
-            infoWindow.open(map, marker);
-        });
-    });
-    */
-  }
