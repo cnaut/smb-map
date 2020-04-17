@@ -74,8 +74,8 @@ function initMap() {
             '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
             '<div id="bodyContent">'+
             '<p>' + business.help + '</p>' +
-            '<p><a href="' + business.url + '">' + business.url + '</a></p>' +
-            '<p>' + business.phone + '</p>' +
+            '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
+            '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
             '</div></div>';        
 
             createMarker(business.name, businessContent, {
