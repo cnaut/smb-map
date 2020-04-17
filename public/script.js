@@ -18,7 +18,8 @@ function initMap() {
             },
             linksControl: false,
             panControl: false,
-            enableCloseButton: false
+            enableCloseButton: false,
+            pitch: 0
         }
     );
 
@@ -35,6 +36,15 @@ function initMap() {
             icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
             title: title
         });
+
+            
+        var marker2 = new google.maps.Marker({
+            position: position,
+            map: panorama,
+            icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
+            title: title
+        });
+        
         
         marker.addListener('click', function(e) {
             sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
