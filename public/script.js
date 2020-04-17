@@ -86,35 +86,6 @@ function initMap() {
         });
     });
 
-    var catBirdContent = '<div id="content">'+
-    '<div id="siteNotice"></div>'+
-    '<h1 id="firstHeading" class="firstHeading">Cat Bird</h1>'+
-    '<div id="bodyContent">'+
-    '<p>How to support: Shop online even though there will be no clear shipping date</p>' +
-    '<p>Message: <a href="https://www.catbirdnyc.com/covid19">https://www.catbirdnyc.com/covid19</a></p>' +
-    '<p><a href="https://www.catbirdnyc.com">https://www.catbirdnyc.com</a></p>' +
-    '</div></div>';
-    
-    var awokeVintageContent = '<div id="content">'+
-    '<div id="siteNotice"></div>'+
-    '<h1 id="firstHeading" class="firstHeading">Awoke Vintage</h1>'+
-    '<div id="bodyContent">'+
-    '<p>How to support: <a href="https://www.instagram.com/awokevintagebrooklyn">Shop instagram</a></p>' +
-    '<p><a href="https://www.awokevintage.com/">https://www.awokevintage.com</a></p>' +
-    '</div></div>';
-
-    var brooklynSpectaclesContent = '<div id="content">'+
-    '<div id="siteNotice"></div>'+
-    '<h1 id="firstHeading" class="firstHeading">Brooklyn Spectacles</h1>'+
-    '<div id="bodyContent">'+
-    '<p>How to support: <a href="https://brooklynspectacles.com">Shop online</a></p>' +
-    '<p><a href="https://brooklynspectacles.com">https://brooklynspectacles.com</a></p>' +
-    '</div></div>';
-
-    //createMarker("Cat Bird", catBirdContent, {lat: 40.7164649, lng: -73.959563})
-    //createMarker("Awoke Vintage", awokeVintageContent, {lat: 40.716602, lng: -73.958623})
-    //createMarker("Brooklyn Spectacles", brooklynSpectaclesContent, {lat: 40.71674, lng: -73.958535})
-
   /**
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
