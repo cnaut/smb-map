@@ -3,16 +3,18 @@ var map, panorama, infoWindow;
 function initMap() {
     var brooklynCenter = {lat: 40.650002, lng: -73.949997};
     var northWilliamsburg = {lat: 40.7162014, lng: -73.9594509};
+    //var bembe = {lat: 40.711210, lng: -73.964836};
+    var bembe = {lat: 40.711375, lng: -73.965950};
     var sv = new google.maps.StreetViewService();
 
     map = new google.maps.Map(document.getElementById('map'), {
-        center: northWilliamsburg,
+        center: bembe,
         zoom: 16
     });
 
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('panorama'), {
-            position: northWilliamsburg,
+            position: bembe,
             addressControlOptions: {
                 position: google.maps.ControlPosition.BOTTOM_CENTER
             },
@@ -30,7 +32,7 @@ function initMap() {
             content: content
         });
     
-        var marker = new google.maps.Marker({
+        var mapMarker = new google.maps.Marker({
             position: position,
             map: map,
             icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
@@ -38,22 +40,24 @@ function initMap() {
         });
 
             
-        var marker2 = new google.maps.Marker({
+        var panormaMarker = new google.maps.Marker({
             position: position,
             map: panorama,
             icon: 'https://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=info|FFFF00',
             title: title
         });
         
+        markerInfoWindow.open(panorama, panormaMarker);
+
         
-        marker.addListener('click', function(e) {
+        mapMarker.addListener('click', function(e) {
             sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
 
             if (closed) {
-                markerInfoWindow.open(map, marker);
+                markerInfoWindow.open(map, mapMarker);
                 closed = false;
             } else {
-                markerInfoWindow.close(map, marker);
+                markerInfoWindow.close(map, mapMarker);
                 closed = true;
             }
         });
@@ -69,6 +73,7 @@ function initMap() {
             '<div id="siteNotice"></div>'+
             '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
             '<div id="bodyContent">'+
+            '<p>' + business.help + '</p>' +
             '<p><a href="' + business.url + '">' + business.url + '</a></p>' +
             '<p>' + business.phone + '</p>' +
             '</div></div>';        
