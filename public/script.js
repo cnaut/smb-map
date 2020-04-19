@@ -100,6 +100,13 @@ function initMap() {
         sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
     });
 
+    panorama.addListener('position_changed', function(e) {
+        console.log("position_changed", e)
+        console.log(panorama.getPosition().lat())
+        var position = panorama.getPosition();
+        map.setCenter({ lat: position.lat(), lng: position.lng() });
+    });    
+
     function processSVData(data, status) {
         if (status === 'OK') {
             panorama.setPano(data.location.pano);
