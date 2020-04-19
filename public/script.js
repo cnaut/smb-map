@@ -25,6 +25,8 @@ function initMap() {
         }
     );
 
+
+    var openInfoWindow;
     function createMarker(business, position) {
         var businessContent = '<div id="content">'+
         '<div id="siteNotice"></div>'+
@@ -33,7 +35,7 @@ function initMap() {
         '<p>' + business.help + '</p>' +
         '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
         '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
-        '</div></div>';        
+        '</div></div>';
 
         console.log(position)
         var closed = true;
@@ -67,6 +69,13 @@ function initMap() {
 
             if (closed) {
                 markerInfoMapWindow.open(map, mapMarker);
+
+                if (openInfoWindow) {
+                    openInfoWindow.close(map)
+                }
+
+                openInfoWindow = markerInfoMapWindow;
+                
                 closed = false;
             } else {
                 markerInfoMapWindow.close(map, mapMarker);
