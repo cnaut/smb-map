@@ -32,8 +32,8 @@ function initMap() {
         '<div id="siteNotice"></div>'+
         '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
         '<div id="bodyContent">'+
-        '<p>' + business.help + '</p>' +
         '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
+        '<p>' + business.help + '</p>' +
         '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
         '</div></div>';
 
@@ -68,12 +68,11 @@ function initMap() {
             sv.getPanorama({location: e.latLng, radius: 50}, processSVData);
 
             if (closed) {
-                markerInfoMapWindow.open(map, mapMarker);
-
                 if (openInfoWindow) {
                     openInfoWindow.close(map)
                 }
 
+                markerInfoMapWindow.open(map, mapMarker);
                 openInfoWindow = markerInfoMapWindow;
                 
                 closed = false;
