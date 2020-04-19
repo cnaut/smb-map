@@ -12,6 +12,11 @@ function initMap() {
         zoom: 16
     });
 
+    var centerMarker = new google.maps.Marker({
+        position: bembe,
+        map: map
+    });
+
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('panorama'), {
             position: bembe,
@@ -104,7 +109,9 @@ function initMap() {
         console.log("position_changed", e)
         console.log(panorama.getPosition().lat())
         var position = panorama.getPosition();
-        map.setCenter({ lat: position.lat(), lng: position.lng() });
+        var location =  { lat: position.lat(), lng: position.lng() };
+        map.setCenter(location);
+        centerMarker.setPosition(location);
     });    
 
     function processSVData(data, status) {
@@ -121,10 +128,8 @@ function initMap() {
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-  infoWindow.open(panorama);
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+    infoWindow.open(panorama);
 }
