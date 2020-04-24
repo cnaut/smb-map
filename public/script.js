@@ -37,7 +37,7 @@ function initMap() {
         '<div id="siteNotice"></div>'+
         '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
         '<div id="bodyContent">'+
-        '<p><a href="' + business.url + '" target="_blank">' + business.url + '</a></p>' +
+        '<p class="businessIframe"><iframe src="' + business.url + '" width="500"></iframe></p>' +
         '<p>' + business.help + '</p>' +
         '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
         '</div></div>';
