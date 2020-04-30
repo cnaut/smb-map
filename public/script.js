@@ -39,7 +39,7 @@ function initMap() {
         '<div id="bodyContent">'+
         '<p class="businessIframe"><iframe src="' + business.url + '" width="500"></iframe></p>' +
         '<p>' + business.help + '</p>' +
-        '<p>(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</p>' +
+        '<p><a href="tel:' + business.phone + '">(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</a></p>' +
         '</div></div>';
 
         console.log(position)
