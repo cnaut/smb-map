@@ -2,11 +2,15 @@
  * element that contains the map.
  */
 #map {
-  height: 25%;
+  height: 100%;
+  width: 25%;
+  display: inline-block;
 }
 
 #panorama{
-    height: 75%;
+  height: 100%;
+  width: 75%;
+  float: right;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -14,6 +18,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .firstHeading {
