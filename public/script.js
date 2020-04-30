@@ -9,7 +9,10 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: bembe,
-        zoom: 16
+        zoom: 16,
+        fullscreenControl: false,
+        streetViewControl: false,
+        mapTypeControl: false
     });
 
     var centerMarker = new google.maps.Marker({
