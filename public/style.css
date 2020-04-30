@@ -21,10 +21,6 @@ html, body {
   overflow: hidden;
 }
 
-.firstHeading {
-  text-align: center;
-}
-
-.businessIframe {
+#content {
   text-align: center;
 }

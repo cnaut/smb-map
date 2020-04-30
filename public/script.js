@@ -39,9 +39,11 @@ function initMap() {
         var businessContent = '<div id="content">'+
         '<div id="siteNotice"></div>'+
         '<h1 id="firstHeading" class="firstHeading">' + business.name +'</h1>'+
+        '<p>' + business.description +'</p>'+
         '<div id="bodyContent">'+
         '<p class="businessIframe"><iframe src="' + business.url + '" width="500"></iframe></p>' +
         '<p>' + business.help + '</p>' +
+        '<p><a href="' + business.url + '" target="blank">'  + business.url + '</a></p>' +
         '<p><a href="tel:' + business.phone + '">(' + business.phone.substring(0, 3) + ') ' + business.phone.substring(3, 6) + '-' + business.phone.substring(6, 10) + '</a></p>' +
         '</div></div>';
 
