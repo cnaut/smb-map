@@ -117,6 +117,7 @@ function initMap() {
         var location =  { lat: position.lat(), lng: position.lng() };
         map.setCenter(location);
         centerMarker.setPosition(location);
+        openInfoWindow.close(map)
     });    
 
     function processSVData(data, status) {
