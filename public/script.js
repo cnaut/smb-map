@@ -139,3 +139,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
     infoWindow.open(panorama);
 }
+
+function closeMap() {
+    console.log("mao closed")
+    document.getElementById("map").className = "hidden";
+    document.getElementById("panorama").className = "expanded";
+}

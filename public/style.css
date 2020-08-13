@@ -7,11 +7,26 @@
   display: inline-block;
 }
 
+#map.hidden {
+  display: none;
+}
+
+#close {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 #panorama{
   height: 100%;
   width: 75%;
   float: right;
 }
+
+#panorama.expanded {
+  width: 100%;
+}
+
 
 /* Optional: Makes the sample page fill the window. */
 html, body {
